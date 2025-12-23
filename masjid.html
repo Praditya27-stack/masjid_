@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masjid Al-Ikhlas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Banner Section */
+        .banner {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Background Image with Overlay */
+        .banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .banner-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 69, 71, 0.95) 0%, rgba(30, 100, 90, 0.85) 50%, rgba(16, 69, 71, 0.75) 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            width: 100%;
+        }
+
+        .banner-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Left Side - Main Info */
+        .banner-left {
+            color: #fff;
+        }
+
+        .mosque-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        .mosque-badge span {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .mosque-name {
+            font-family: 'Amiri', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            background: #d4af37;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mosque-tagline {
+            font-size: 20px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .mosque-address {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .mosque-address svg {
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .banner-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0. 3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+            color: #104547;
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0. 3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0. 3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Right Side - Prayer Times Card */
+        .banner-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .prayer-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .prayer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .prayer-title {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .current-date {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .current-date span {
+            display: block;
+            color: #d4af37;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .prayer-times {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .prayer-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .prayer-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(212, 175, 55, 0. 3);
+        }
+
+        .prayer-item.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0. 1) 100%);
+            border-color: rgba(212, 175, 55, 0. 5);
+        }
+
+        .prayer-item.active .prayer-item-name {
+            color: #d4af37;
+        }
+
+        .prayer-item-name {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prayer-item-time {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Next Prayer Highlight */
+        .next-prayer {
+            background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .next-prayer-info h4 {
+            color: #104547;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .next-prayer-info p {
+            color: #104547;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .countdown {
+            text-align: right;
+        }
+
+        .countdown span {
+            display: block;
+            color: rgba(16, 69, 71, 0. 7);
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .countdown-time {
+            color: #104547;
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Quick Info Cards */
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0. 1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0. 3) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-icon svg {
+            color: #d4af37;
+        }
+
+        .info-text h4 {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-text p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .mosque-name {
+                font-size: 52px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .banner-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .banner {
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+
+            .banner-left {
+                text-align: center;
+            }
+
+            .mosque-address {
+                justify-content: center;
+            }
+
+            .banner-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .mosque-name {
+                font-size: 40px;
+            }
+
+            .mosque-tagline {
+                font-size: 16px;
+            }
+
+            .prayer-times {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="banner">
+        <!-- Background -->
+        <div class="banner-bg">
+            <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1920&q=80" alt="Masjid Background">
+        </div>
+        <div class="container">
+            <div class="banner-content">
+                <!-- Left Side -->
+                <div class="banner-left">
+                    <div class="mosque-badge">
+                        <span>MASJID JAMI'</span>
+                    </div>
+                    
+                    <h1 class="mosque-name">Masjid Al-Ikhlas</h1>
+                    <p class="mosque-tagline">Membangun Umat, Memakmurkan Masjid</p>
+                    
+                    <div class="mosque-address">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Area Pabrik PT Aisin Indonesia Automotive<br>Kawasan Industri KIIC, Karawang, Jawa Barat</span>
+                    </div>
+
+                    <div class="banner-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            Lokasi Masjid
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            Hubungi Kami
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="banner-right">
+                    <!-- Prayer Times Card -->
+                    <div class="prayer-card">
+                        <div class="prayer-header">
+                            <h3 class="prayer-title">Jadwal Sholat</h3>
+                            <div class="current-date">
+                                <span>5 Jumadil Akhir 1447 H</span>
+                                5 Desember 2025
+                            </div>
+                        </div>
+
+                        <div class="prayer-times">
+                            <div class="prayer-item">
+                                <div class="prayer-item-name">Subuh</div>
+                                <div class="prayer-item-time">04:32</div>
+                            </div>
+                            <div class="prayer-item">
+                                <div class="prayer-item-name">Dzuhur</div>
+                                <div class="prayer-item-time">11:54</div>
+                            </div>
+                            <div class="prayer-item active">
+                                <div class="prayer-item-name">Ashar</div>
+                                <div class="prayer-item-time">15:12</div>
+                            </div>
+                            <div class="prayer-item">
+                                <div class="prayer-item-name">Maghrib</div>
+                                <div class="prayer-item-time">18:02</div>
+                            </div>
+                            <div class="prayer-item">
+                                <div class="prayer-item-name">Isya</div>
+                                <div class="prayer-item-time">19:15</div>
+                            </div>
+                            <div class="prayer-item">
+                                <div class="prayer-item-name">Jumat</div>
+                                <div class="prayer-item-time">12:00</div>
+                            </div>
+                        </div>
+
+                        <!-- Next Prayer -->
+                        <div class="next-prayer">
+                            <div class="next-prayer-info">
+                                <h4>Sholat Selanjutnya</h4>
+                                <p>Ashar - 15:12</p>
+                            </div>
+                            <div class="countdown">
+                                <span>Waktu tersisa</span>
+                                <div class="countdown-time">02:34:15</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Info -->
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <div class="info-icon">
+                            </div>
+                            <div class="info-text">
+                                <h4>Kajian Rutin</h4>
+                                <p>Setiap Ba'da Maghrib</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                            </div>
+                            <div class="info-text">
+                                <h4>TPQ Al-Ikhlas</h4>
+                                <p>Senin - Jumat, 15:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
